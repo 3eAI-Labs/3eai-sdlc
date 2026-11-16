@@ -1,6 +1,6 @@
 {
   "name": "sentinel",
-  "version": "0.40.0",
+  "version": "0.40.1",
   "description": "Sentinel Core: build a project in four reviewed and approved stages (define, design, build, release), with short guidelines, a fresh-context reviewer and an opt-in gate for destructive commands.",
   "author": {
     "name": "3EAI Labs Ltd"
