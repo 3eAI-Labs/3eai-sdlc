@@ -1,0 +1,210 @@
+{
+  "_comment": "Plugin-default gate rules for hooks/forced_rule_set_gate.py (lowest layer; see hooks/rule_layers.py): hard-deny patterns, and outward rules that ask. Active when forced_rule_set is ON. approve.token overrides one call. Fields: id, tool (name or list; Task and Agent are one name), command_regex | file_regex | regex | guard ('control-files' = paths resolved like bash; hooks/gate_control.py), reason, match_scope (segment | line | both [default, = the whole line as before layering, plus segments]), anchor ('command' = match counts only where the shell would execute it; see hooks/shell_position.py), decision ('ask' = the user is asked instead of a deny; absent = deny). Rules whose danger lives inside quotes (SQL) carry no anchor. Deny rules are tried before ask rules, in every layer. An ask rule matches a command only where it starts a segment (its regex begins with a case-sensitive prefix for sudo, env, timeout, nice, VAR=value, '(' and the like), sees no heredoc bodies and ignores match_scope. Every rule is executed by tests/test_destructive_defaults.py.",
+  "patterns": [
+    {
+      "id": "rm-root-home",
+      "tool": "Bash",
+      "command_regex": "(?i)\\brm\\s(?:[^\\n]*\\s)?[\"']?(?:/(?:bin|boot|dev|etc|home|lib|lib64|opt|proc|root|sbin|srv|sys|usr|var)?/?|~/?|\\$HOME/?|\\$\\{HOME\\}/?)\\*?[\"']?(?=[\\s)`]|$)",
+      "match_scope": "segment",
+      "reason": "rm on filesystem root, a top-level system directory, or home"
+    },
+    {
+      "id": "rm-windows-drive-root",
+      "tool": "Bash",
+      "command_regex": "(?i)\\brm\\s(?:[^\\n]*\\s)?[\"']?[a-z]:[\\\\/]?[\"']?(?=[\\s)`]|$)",
+      "match_scope": "segment",
+      "reason": "rm on a Windows drive root"
+    },
+    {
+      "id": "git-force-push-protected",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bgit\\s+(?:-C\\s+\\S+\\s+)?push\\b(?=[^\\n]*\\s(?:--force\\S*|-[a-z]*f[a-z]*)(?=[\\s\"'`);&|<>]|$))(?=[^\\n]*[\\s:/](?:main|master|trunk|release|develop)(?=[\\s\"'`);&|<>]|$))",
+      "match_scope": "segment",
+      "anchor": "command",
+      "reason": "force-push to a protected branch"
+    },
+    {
+      "id": "git-force-push-refspec-protected",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bgit\\s+(?:-C\\s+\\S+\\s+)?push\\b[^\\n]*\\s\\+(?:[^\\s:]*:)?(?:refs/heads/)?(?:main|master|trunk|release|develop)(?=[\\s\"'`);&|<>]|$)",
+      "match_scope": "segment",
+      "anchor": "command",
+      "reason": "force-push (+refspec) to a protected branch"
+    },
+    {
+      "id": "git-push-delete-protected",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bgit\\s+(?:-C\\s+\\S+\\s+)?push\\b(?:(?=[^\\n]*\\s(?:--delete|-[a-z]*d[a-z]*)(?=[\\s\"'`);&|<>]))(?=[^\\n]*\\s(?:main|master|trunk|release|develop)(?=[\\s\"'`);&|<>]|$))|[^\\n]*\\s:(?:refs/heads/)?(?:main|master|trunk|release|develop)(?=[\\s\"'`);&|<>]|$))",
+      "match_scope": "segment",
+      "anchor": "command",
+      "reason": "delete a protected branch on the remote"
+    },
+    {
+      "id": "git-reset-hard-remote-protected",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bgit\\s+(?:-C\\s+\\S+\\s+)?reset\\s+--hard\\s+\\S+/(?:main|master|trunk|release|develop)(?=[\\s\"'`);&|<>]|$)",
+      "match_scope": "segment",
+      "anchor": "command",
+      "reason": "reset --hard to a remote protected branch (loses local work)"
+    },
+    {
+      "id": "git-clean-force",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bgit\\s+(?:-C\\s+\\S+\\s+)?clean\\b(?=[^\\n]*\\s-[a-z]*f)(?=[^\\n]*\\s-[a-z]*[dx])",
+      "match_scope": "segment",
+      "anchor": "command",
+      "reason": "git clean with force — deletes untracked directories (d) or ignored files (x)"
+    },
+    {
+      "id": "git-branch-delete-protected",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bgit\\s+(?:-C\\s+\\S+\\s+)?branch\\s+-D\\s+(?:main|master|trunk|release|develop)(?=[\\s\"'`);&|<>]|$)",
+      "match_scope": "segment",
+      "anchor": "command",
+      "reason": "force-delete a protected branch"
+    },
+    {
+      "id": "sql-drop",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bDROP\\s+(?:DATABASE|SCHEMA|TABLE)\\b",
+      "match_scope": "segment",
+      "reason": "destructive SQL drop"
+    },
+    {
+      "id": "sql-truncate",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bTRUNCATE\\s+TABLE\\b",
+      "match_scope": "segment",
+      "reason": "destructive SQL truncate"
+    },
+    {
+      "id": "dd-raw-disk",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bdd\\s+[^\\n]*\\bof=/dev/(?:sd[a-z]|vd[a-z]|xvd[a-z]|hd[a-z]|nvme|mmcblk|disk\\d)",
+      "match_scope": "segment",
+      "reason": "dd write to a raw disk device"
+    },
+    {
+      "id": "mkfs",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bmkfs(?:\\.[a-z0-9]+)?\\s",
+      "match_scope": "segment",
+      "reason": "format a filesystem"
+    },
+    {
+      "id": "chmod-777-recursive",
+      "tool": "Bash",
+      "command_regex": "(?i)\\bchmod\\s+-R\\s+0?7?77\\s+/(?!tmp)",
+      "match_scope": "segment",
+      "reason": "recursive chmod 777 on a non-/tmp absolute path"
+    },
+    {
+      "id": "fork-bomb",
+      "tool": "Bash",
+      "command_regex": ":\\(\\)\\s*\\{\\s*:\\|:&\\s*\\};:",
+      "match_scope": "line",
+      "anchor": "command",
+      "reason": "fork bomb (its grammar contains separators, so it needs the unsplit line)"
+    },
+    {
+      "id": "ps-remove-recursive-root",
+      "tool": "PowerShell",
+      "command_regex": "(?i)Remove-Item\\s+[^\\n]*-Recurse[^\\n]*-Force[^\\n]*(C:|D:|E:|~|\\$HOME|\\$env:USERPROFILE)\\\\?(\\s|$)",
+      "match_scope": "segment",
+      "reason": "recursive force-remove on a drive root or home"
+    },
+    {
+      "id": "ps-format-volume",
+      "tool": "PowerShell",
+      "command_regex": "(?i)Format-Volume\\b",
+      "match_scope": "segment",
+      "reason": "format a volume"
+    },
+    {
+      "id": "ps-clear-disk",
+      "tool": "PowerShell",
+      "command_regex": "(?i)Clear-Disk\\b",
+      "match_scope": "segment",
+      "reason": "clear a disk"
+    },
+    {
+      "id": "gate-control-files-edit",
+      "tool": [
+        "Edit",
+        "Write",
+        "MultiEdit",
+        "NotebookEdit"
+      ],
+      "reason": "the gate's own control files (rule layers, opt-in marker, approve.token) are the user's; an agent that edits them can switch the gate off",
+      "guard": "control-files"
+    },
+    {
+      "id": "gate-control-files-shell",
+      "tool": "Bash",
+      "reason": "shell write, delete or move of the gate's own control files (rule layers, opt-in marker, approve.token) or their directory",
+      "guard": "control-files"
+    },
+    {
+      "id": "gate-control-files-powershell",
+      "tool": "PowerShell",
+      "match_scope": "segment",
+      "command_regex": "(?i)(?:>\\|?\\s*[\\\"']?(?:[^\\s\\\"';&|<>]*[/\\\\])?(?:destructive_patterns\\.json|forced_rule_set|approve\\.token)(?![\\w.-])|\\b(?:remove-item|set-content|add-content|clear-content|out-file|new-item|move-item|copy-item|rename-item|rm|ri|del|erase|mv|move|cp|copy|ni)\\b[^\\n]*?(?:destructive_patterns\\.json|forced_rule_set|approve\\.token)(?![\\w.-])|\\b(?:remove-item|rm|ri|del|erase|rd|rmdir|move-item|mv|move)\\b[^\\n]*?(?<![\\w.-])\\.sentinel-control(?:[/\\\\]\\*?)?(?=[\\s\\\"';&|)]|$))",
+      "reason": "PowerShell write, delete or move of the gate's own control files or their directory"
+    },
+    {
+      "id": "outward-git-push",
+      "tool": [
+        "Bash",
+        "PowerShell"
+      ],
+      "command_regex": "^\\s*(?:[({!]\\s*|(?:then|do|else|elif|if|while|until|time|nohup|command|exec)\\s+|sudo(?:\\s+-[ughpCDRTUrt]\\s*\\S+|\\s+-[AbEeHiKklnPSsVv]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|env(?:\\s+-u\\s+\\S+|\\s+-[iv0]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|timeout(?:\\s+-[sk]\\s+\\S+|\\s+--(?:signal|kill-after)=\\S+|\\s+--(?:preserve-status|foreground|verbose))*\\s+\\d\\S*\\s+|nice(?:\\s+-n\\s*-?\\d+|\\s+-\\d+)?\\s+|[A-Za-z_]\\w*=(?:'[^']*'|\\\"[^\\\"]*\\\"|[^\\s'\\\"])*\\s+|(?:[A-Za-z_]\\w*=)?\\$\\(\\s*)*(?i:(?:\\S*/)?git(?:\\s+-[Cc]\\s+\\S+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+push\\b)",
+      "match_scope": "segment",
+      "decision": "ask",
+      "reason": "git push sends commits to a remote"
+    },
+    {
+      "id": "outward-remote-copy",
+      "tool": [
+        "Bash",
+        "PowerShell"
+      ],
+      "command_regex": "^\\s*(?:[({!]\\s*|(?:then|do|else|elif|if|while|until|time|nohup|command|exec)\\s+|sudo(?:\\s+-[ughpCDRTUrt]\\s*\\S+|\\s+-[AbEeHiKklnPSsVv]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|env(?:\\s+-u\\s+\\S+|\\s+-[iv0]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|timeout(?:\\s+-[sk]\\s+\\S+|\\s+--(?:signal|kill-after)=\\S+|\\s+--(?:preserve-status|foreground|verbose))*\\s+\\d\\S*\\s+|nice(?:\\s+-n\\s*-?\\d+|\\s+-\\d+)?\\s+|[A-Za-z_]\\w*=(?:'[^']*'|\\\"[^\\\"]*\\\"|[^\\s'\\\"])*\\s+|(?:[A-Za-z_]\\w*=)?\\$\\(\\s*)*(?i:(?:\\S*/)?(?:(?:scp|sftp)\\s|rsync\\s[^\\n]*\\s[\\w.@-]+:\\S))",
+      "match_scope": "segment",
+      "decision": "ask",
+      "reason": "copies files to or from a remote host"
+    },
+    {
+      "id": "outward-publish",
+      "tool": [
+        "Bash",
+        "PowerShell"
+      ],
+      "command_regex": "^\\s*(?:[({!]\\s*|(?:then|do|else|elif|if|while|until|time|nohup|command|exec)\\s+|sudo(?:\\s+-[ughpCDRTUrt]\\s*\\S+|\\s+-[AbEeHiKklnPSsVv]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|env(?:\\s+-u\\s+\\S+|\\s+-[iv0]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|timeout(?:\\s+-[sk]\\s+\\S+|\\s+--(?:signal|kill-after)=\\S+|\\s+--(?:preserve-status|foreground|verbose))*\\s+\\d\\S*\\s+|nice(?:\\s+-n\\s*-?\\d+|\\s+-\\d+)?\\s+|[A-Za-z_]\\w*=(?:'[^']*'|\\\"[^\\\"]*\\\"|[^\\s'\\\"])*\\s+|(?:[A-Za-z_]\\w*=)?\\$\\(\\s*)*(?i:(?:\\S*/)?(?:(?:npm|pnpm|yarn|uv|poetry)\\s+publish\\b|(?:python3?\\s+-m\\s+)?twine\\s+upload\\b|cargo\\s+publish\\b|gem\\s+push\\b|(?:docker|podman)\\s+(?:image\\s+)?push\\b|helm\\s+push\\b))",
+      "match_scope": "segment",
+      "decision": "ask",
+      "reason": "publishes a package or an image"
+    },
+    {
+      "id": "outward-gh-post",
+      "tool": [
+        "Bash",
+        "PowerShell"
+      ],
+      "command_regex": "^\\s*(?:[({!]\\s*|(?:then|do|else|elif|if|while|until|time|nohup|command|exec)\\s+|sudo(?:\\s+-[ughpCDRTUrt]\\s*\\S+|\\s+-[AbEeHiKklnPSsVv]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|env(?:\\s+-u\\s+\\S+|\\s+-[iv0]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|timeout(?:\\s+-[sk]\\s+\\S+|\\s+--(?:signal|kill-after)=\\S+|\\s+--(?:preserve-status|foreground|verbose))*\\s+\\d\\S*\\s+|nice(?:\\s+-n\\s*-?\\d+|\\s+-\\d+)?\\s+|[A-Za-z_]\\w*=(?:'[^']*'|\\\"[^\\\"]*\\\"|[^\\s'\\\"])*\\s+|(?:[A-Za-z_]\\w*=)?\\$\\(\\s*)*(?i:(?:\\S*/)?gh\\s+(?:pr\\s+(?:create|merge|comment|review)|issue\\s+(?:create|comment)|release\\s+create)\\b)",
+      "match_scope": "segment",
+      "decision": "ask",
+      "reason": "posts to GitHub (pull request, issue or release)"
+    },
+    {
+      "id": "outward-mail",
+      "tool": [
+        "Bash",
+        "PowerShell"
+      ],
+      "command_regex": "^\\s*(?:[({!]\\s*|(?:then|do|else|elif|if|while|until|time|nohup|command|exec)\\s+|sudo(?:\\s+-[ughpCDRTUrt]\\s*\\S+|\\s+-[AbEeHiKklnPSsVv]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|env(?:\\s+-u\\s+\\S+|\\s+-[iv0]+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+|timeout(?:\\s+-[sk]\\s+\\S+|\\s+--(?:signal|kill-after)=\\S+|\\s+--(?:preserve-status|foreground|verbose))*\\s+\\d\\S*\\s+|nice(?:\\s+-n\\s*-?\\d+|\\s+-\\d+)?\\s+|[A-Za-z_]\\w*=(?:'[^']*'|\\\"[^\\\"]*\\\"|[^\\s'\\\"])*\\s+|(?:[A-Za-z_]\\w*=)?\\$\\(\\s*)*(?i:(?:(?:\\S*/)?(?:mail|mailx|sendmail|mutt|swaks)\\s|(?:\\S*/)?git(?:\\s+-[Cc]\\s+\\S+|\\s+--[a-z][a-z-]*(?:=\\S+)?)*\\s+send-email\\b))",
+      "match_scope": "segment",
+      "decision": "ask",
+      "reason": "sends mail"
+    }
+  ]
+}

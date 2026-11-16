@@ -1,0 +1,85 @@
+3EAI Labs Proprietary Licence
+
+Copyright (c) 3EAI Labs Ltd. All rights reserved.
+
+This licence applies to sentinel, the software in this package or repository,
+including its skills, agents, guidelines, hooks, tools and documentation (the
+"Software"). 3EAI Labs Ltd ("3EAI") owns the Software. It is licensed, not
+sold.
+
+1. Editions
+
+   The Software comes in two editions:
+
+   - the free edition, which anyone may use at no charge under this licence;
+   - Pro, which may be used only under a valid subscription or licence
+     agreement with 3EAI, for its term and within its limits. Where that
+     agreement and this licence differ, the agreement governs.
+
+2. Grant
+
+   Subject to this licence, 3EAI grants you a non-exclusive, non-transferable,
+   revocable right to:
+
+   (a) install the Software from an official channel: Claude's plugin
+       directory, 3EAI's marketplace, or a copy 3EAI hands over to you;
+   (b) make the copies that installing and using the Software need, such as
+       the copy a plugin manager keeps on your machine; and
+   (c) use the Software to develop your own software, for yourself or for
+       your organisation.
+
+   Output that the Software helps you produce for your own projects belongs
+   to you.
+
+3. Restrictions
+
+   Beyond the grant in section 2, you may not, and may not let others:
+
+   (a) copy, redistribute, publish, sell, rent, lend or otherwise make the
+       Software available to anyone else;
+   (b) modify, adapt, translate or create derivative works of the Software;
+   (c) sublicense the Software or transfer your rights under this licence;
+   (d) reverse engineer, decompile or disassemble the Software, or try to
+       recover its source from compiled code, except to the extent the law
+       that applies to you allows it despite this restriction;
+   (e) remove or alter any notice of ownership or of this licence; or
+   (f) circumvent any limit that separates the free edition from Pro.
+
+   Where the Software is published in a public repository, nothing in this
+   licence limits the rights that the hosting platform's terms give its users
+   to view that repository. Those rights do not include the rights this
+   section withholds.
+
+4. Third-party parts
+
+   Parts of the Software that come from third parties keep their own licence,
+   which ships beside them. In particular, vendor/yaml is PyYAML, under the
+   licence in vendor/yaml/LICENSE. This licence does not limit your rights
+   under those licences.
+
+5. Termination
+
+   This licence ends automatically if you breach it. A Pro licence also ends
+   when your subscription or licence agreement ends. When it ends, you must
+   stop using the Software and delete your copies of it.
+
+6. No warranty
+
+   The Software is provided "as is", without warranty of any kind, express or
+   implied, including the warranties of merchantability, fitness for a
+   particular purpose and non-infringement, to the extent the law allows. You
+   are responsible for reviewing and approving what you build with it.
+
+7. Limitation of liability
+
+   To the extent the law allows, 3EAI is not liable for any indirect,
+   incidental, special or consequential damages, or for any loss of data,
+   profit or business, arising from the Software or this licence. For the
+   free edition, 3EAI's total liability is zero; for Pro, it is limited to
+   the fees you paid 3EAI for the Software in the twelve months before the
+   claim, unless your agreement says otherwise.
+
+8. Contact
+
+   For licences, subscriptions and questions: 3EAI Labs Ltd,
+   https://3eai-labs.org
