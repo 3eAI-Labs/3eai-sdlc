@@ -1,4 +1,4 @@
-"""Phase-aware activation policy for sentinel runtime hooks.
+"""Phase-aware activation policy for 3eai-sdlc runtime hooks.
 
 Reads `<cwd>/.sentinel/runtime/current_phase` (single line, e.g. "phase5",
 "maintenance", "incident") and decides whether a given hook should run.
@@ -6,7 +6,7 @@ Reads `<cwd>/.sentinel/runtime/current_phase` (single line, e.g. "phase5",
 Design
 ------
 - The matrix below is the single source of truth. Edit it to change behavior.
-- Unknown phase (file missing/empty) ⇒ hook does NOT run. Sentinel's identity
+- Unknown phase (file missing/empty) ⇒ hook does NOT run. 3eAI SDLC's identity
   is "phase-gated"; without a declared phase there is no gate to enforce, and
   silently denying tool calls in a fresh install would be hostile. The plan
   anchor's route (`_project_state.hook_route`) is the one output outside this:
@@ -15,7 +15,7 @@ Design
   user out of their session.
 
 The phase string is written by the phase or stage skill the user invokes
-(e.g. `/phase5`, `/sentinel:build`). Operational modes (maintenance/incident)
+(e.g. `/phase5`, `/3eai-sdlc:build`). Operational modes (maintenance/incident)
 write their own value.
 """
 

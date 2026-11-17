@@ -21,7 +21,7 @@ enter    the phase and stage skills' first line: when the project follows the
          flow of <phase> and has reached it, writes the phase marker and does
          what `setup` does (exit 0); else prints the route (to the phase it is
          at, or the question that decides the flow) and writes nothing (exit 3).
-setup    in a git work tree, appends to <root>/.gitignore the sentinel runtime
+setup    in a git work tree, appends to <root>/.gitignore the 3eai-sdlc runtime
          lines it lacks and prints one line naming them; prints nothing when
          none is missing or outside git. <root> is --root, else the project
          root. The mode skills call it with --root "$PWD".
@@ -46,8 +46,8 @@ Enterprise phases: phase1 phase2 phase3 phase35 phase4 phase5 phase55 phase6.
 Core stages: define design build release.
 
 The free edition (`"edition": "free"` in the plugin's BUILD_INFO.json) holds
-the Core flow only: `flow enterprise` and `upgrade` exit 2 naming sentinel Pro,
-an enterprise project's routes and `skill:` line name sentinel Pro, and
+the Core flow only: `flow enterprise` and `upgrade` exit 2 naming 3eAI SDLC Pro,
+an enterprise project's routes and `skill:` line name 3eAI SDLC Pro, and
 `flow core` may replace an enterprise flow inferred only from a deliverables
 directory.
 """
@@ -93,14 +93,14 @@ def _status() -> int:
     edition = ps.edition()
     if flow is None and edition == "free":
         print(f"undecided ({state.source}): {state.reason}")
-        print("skill: sentinel:define")
+        print("skill: 3eai-sdlc:define")
         print("flow: undecided")
         print("next: run `sentinel-state flow core`; if the user says the project is large "
               f"(several teams, regulatory requirements), first say once that {ps.PRO_SENTENCE}, "
               "offer the Core flow, and record it only after the user accepts")
     elif flow is None:
         print(f"undecided ({state.source}): {state.reason}")
-        print("skill: sentinel:define (small project) or sentinel:phase1 (enterprise project)")
+        print("skill: 3eai-sdlc:define (small project) or 3eai-sdlc:phase1 (enterprise project)")
         print("flow: undecided")
         print("next: ask the user whether this is a small project (one developer or a small "
               "team, with no regulatory or multi-team requirements) or an enterprise one, then "
@@ -114,7 +114,7 @@ def _status() -> int:
                   "`sentinel-state flow core` moves the project to the Core flow")
     else:
         print(f"{state.phase} ({state.source}): {state.reason}")
-        print(f"skill: sentinel:{state.phase}")
+        print(f"skill: 3eai-sdlc:{state.phase}")
         print(f"flow: {flow}")
     print(f"edition: {edition}")
     print(f"root: {root}")
@@ -139,7 +139,7 @@ def _upgrade() -> int:
         return 2
     print(f"sentinel-state: the project follows the enterprise flow now; it resumes at "
           f"{state.phase} ({state.reason})")
-    print(f"skill: sentinel:{state.phase}")
+    print(f"skill: 3eai-sdlc:{state.phase}")
     return 0
 
 

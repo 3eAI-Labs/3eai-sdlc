@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PreToolUse hook: pivot interceptor (sentinel runtime layer).
+"""PreToolUse hook: pivot interceptor (3eai-sdlc runtime layer).
 
 Catches the moment a model is about to edit code IT AUTHORED earlier in the
 session, immediately after a failing pytest run.

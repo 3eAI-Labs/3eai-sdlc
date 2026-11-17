@@ -4,7 +4,7 @@ description: |
   Systematic root-cause debugging — no fixes without diagnosis. Four phases: reproduce,
   isolate, hypothesize, implement. Iron Law: never apply a fix without understanding the
   root cause first. Use when asked to "debug this", "fix this bug", "why is this broken",
-  "investigate", or when behavior diverges from expected. (sentinel)
+  "investigate", or when behavior diverges from expected. (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -21,7 +21,7 @@ allowed-tools:
 ```bash
 E3E_ROOT="$(sentinel-root)" || exit 1
 echo "======================================================================"
-echo "🔍 SENTINEL: INVESTIGATE — Root Cause Debugging"
+echo "🔍 3EAI-SDLC: INVESTIGATE — Root Cause Debugging"
 echo "======================================================================"
 echo ""
 "$E3E_ROOT/guidelines/load_phase_context.sh" investigate "$PWD" || exit $?

@@ -3,12 +3,12 @@ name: phase-review
 description: |
   Fresh-context adversarial review of any phase's deliverables. Validates Phase 1-6
   artifacts against VISION, manifest, enabled guidelines, and upstream phase outputs, and
-  the Sentinel Core stages (define, design, build, release) against their essentials checklists.
+  the 3eAI SDLC Core stages (define, design, build, release) against their essentials checklists.
   Detects padding, scope creep, traceability gaps, and cross-artifact contradictions.
   Produces a structured phase review report that gates progression to the next phase.
   Not for: a work plan (/plan-review).
   Triggers: "phase-review", "review phase 1", "review phase 2", "adversarial review",
-  "check phase output", "validate phase N", "review the define stage". (sentinel)
+  "check phase output", "validate phase N", "review the define stage". (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -31,18 +31,18 @@ Do NOT review in-context yourself — fresh context is what prevents rubber-stam
 ## Usage
 
 ```
-/sentinel:phase-review <N>
+/3eai-sdlc:phase-review <N>
 ```
 
 Where `<N>` is one of: `1`, `2`, `3`, `3.5`, `4`, `5`, `5.5`, `6` (Enterprise flow), or one of
 `define`, `design`, `build`, `release` (Core flow).
 
 Examples:
-- `/sentinel:phase-review 1` — review Phase 1 (VISION, MANIFEST, USER_STORIES, SRS, DATA_CLASSIFICATION)
-- `/sentinel:phase-review 3` — review Phase 3 (HLD, API_CONTRACTS, ADRs, DATA_OWNERSHIP, manifest stack amendment)
-- `/sentinel:phase-review 3.5` — review Phase 3.5 (walking skeleton smoke proof, RUNTIME_CONTRACT)
-- `/sentinel:phase-review 5.5` — review Phase 5.5 (test coverage, security scans)
-- `/sentinel:phase-review define` — review a Core project's requirements (`docs/01_product/REQUIREMENTS.md`)
+- `/3eai-sdlc:phase-review 1` — review Phase 1 (VISION, MANIFEST, USER_STORIES, SRS, DATA_CLASSIFICATION)
+- `/3eai-sdlc:phase-review 3` — review Phase 3 (HLD, API_CONTRACTS, ADRs, DATA_OWNERSHIP, manifest stack amendment)
+- `/3eai-sdlc:phase-review 3.5` — review Phase 3.5 (walking skeleton smoke proof, RUNTIME_CONTRACT)
+- `/3eai-sdlc:phase-review 5.5` — review Phase 5.5 (test coverage, security scans)
+- `/3eai-sdlc:phase-review define` — review a Core project's requirements (`docs/01_product/REQUIREMENTS.md`)
 
 If no argument is given, review the phase or stage `sentinel-state` prints (Step 1). Do not
 guess from conversation context.
@@ -55,18 +55,18 @@ Set `REVIEW_ARG` to the argument as given (`define`, `3`, `3.5`, …), or leave 
 REVIEW_ARG=""
 E3E_ROOT="$(sentinel-root)" || exit 1
 echo "======================================================================"
-echo "🔎 SENTINEL: PHASE REVIEW — Fresh-Context Adversarial Reviewer"
+echo "🔎 3EAI-SDLC: PHASE REVIEW — Fresh-Context Adversarial Reviewer"
 echo "======================================================================"
 echo ""
 echo "Project root: $PWD"
 
 STATE="$(sentinel-state status 2>/dev/null)"
 FLOW="$(printf '%s\n' "$STATE" | sed -n 's/^flow: //p')"
-CURRENT="$(printf '%s\n' "$STATE" | sed -n 's/^skill: sentinel://p')"
+CURRENT="$(printf '%s\n' "$STATE" | sed -n 's/^skill: 3eai-sdlc://p')"
 EDITION="$(printf '%s\n' "$STATE" | sed -n 's/^edition: //p')"
 if [[ "$EDITION" == "free" && "$FLOW" == "enterprise" ]]; then
   printf '%s\n' "$STATE"
-  echo "⚠️  This project follows the enterprise flow, which is part of sentinel Pro; this edition reviews the Core stages only. Tell the user so once, in project terms, and follow the 'next:' line above if there is one."
+  echo "⚠️  This project follows the enterprise flow, which is part of 3eAI SDLC Pro; this edition reviews the Core stages only. Tell the user so once, in project terms, and follow the 'next:' line above if there is one."
   exit 1
 fi
 if [[ "$FLOW" == "undecided" ]]; then
@@ -81,7 +81,7 @@ case "$REVIEW_ARG" in
 esac
 if [[ -n "$FLOW" && "$ARG_FLOW" != "$FLOW" ]]; then
   echo "⚠️  '$REVIEW_ARG' belongs to the $ARG_FLOW flow; this project follows the $FLOW flow and is at '$CURRENT'."
-  echo "    Review that instead: /sentinel:phase-review $CURRENT"
+  echo "    Review that instead: /3eai-sdlc:phase-review $CURRENT"
   exit 1
 fi
 if [[ "$FLOW" == "core" ]]; then
@@ -97,7 +97,7 @@ MANIFEST="$PWD/docs/01_product/GUIDELINES_MANIFEST.yaml"
 if [[ ! -f "$MANIFEST" ]]; then
   echo ""
   echo "⚠️  GUIDELINES_MANIFEST.yaml missing — phase-review cannot run without it."
-  echo "    Fix path: run /sentinel:phase1 first to bootstrap the manifest."
+  echo "    Fix path: run /3eai-sdlc:phase1 first to bootstrap the manifest."
   echo "    (Review needs the manifest to decide which guidelines apply.)"
   exit 1
 fi
@@ -205,7 +205,7 @@ Secondary triggers:
 
 - It does not fix findings. Resolution is the author's responsibility.
 - It does not negotiate severity. A 🔴 finding is resolved or acknowledged in writing by the PO — never debated down.
-- It does not replace `sentinel:review` / `sentinel:cso` — those target code; phase review targets documentation-layer deliverables.
+- It does not replace `3eai-sdlc:review` / `3eai-sdlc:cso` — those target code; phase review targets documentation-layer deliverables.
 
 ## Subagent Contract Reference
 

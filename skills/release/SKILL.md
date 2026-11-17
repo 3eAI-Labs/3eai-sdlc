@@ -1,14 +1,14 @@
 ---
 name: release
 description: |
-  Sentinel Core, stage 4 of 4 — release a small project (one developer or a small team):
+  3eAI SDLC Core, stage 4 of 4 — release a small project (one developer or a small team):
   version, pre-release checklist, deploy and rollback steps, known issues, from its approved
   build.
   Use after a small project's build is approved. Choose it by the user's words; its first step checks the
   project itself.
   Not for: an enterprise project's release gate, compliance and deployment (/phase6); commit,
   push and PR of a branch (/ship).
-  Triggers: "release my app", "first release of my small project", "prepare the release". (sentinel)
+  Triggers: "release my app", "first release of my small project", "prepare the release". (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -21,7 +21,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# Release — ship and roll back (Sentinel Core, stage 4 of 4)
+# Release — ship and roll back (3eAI SDLC Core, stage 4 of 4)
 
 **Stage marker (run first):** it checks that the project follows the Core flow and has reached this stage, and sets the stage. If it exits non-zero, stop this skill and follow its output.
 
@@ -42,7 +42,7 @@ Follow the loaded CORE_WORKFLOW and RELEASE_GUIDELINE.
 1. Read `docs/05_implementation/BUILD_REPORT.md`, and `docs/06_deploy/RELEASE.md` if it exists.
 2. Run the pre-release checklist of RELEASE_GUIDELINE rule 2 and record each result with its evidence.
 3. Write `docs/06_deploy/RELEASE.md` per RELEASE_GUIDELINE.
-4. Run `/sentinel:phase-review release` (Skill tool). Fix every 🔴 finding and run it again; show the user each 🟡 finding and how it was handled.
+4. Run `/3eai-sdlc:phase-review release` (Skill tool). Fix every 🔴 finding and run it again; show the user each 🟡 finding and how it was handled.
 5. Ask the approval question below and record the answer.
 6. Tag, publish or deploy only after the approval and with the user's go-ahead for that action.
 

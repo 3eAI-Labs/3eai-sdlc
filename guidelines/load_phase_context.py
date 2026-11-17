@@ -99,7 +99,7 @@ def helper_uses_essentials():
 # -------- validation --------
 
 def die(code, msg):
-    print(f"SENTINEL MANIFEST ERROR: {msg}", file=sys.stderr)
+    print(f"3EAI-SDLC MANIFEST ERROR: {msg}", file=sys.stderr)
     sys.exit(code)
 
 def debug(msg):
@@ -204,7 +204,7 @@ def extract_section(body, n):
     # ten phase-review rounds was that it produced no signal at all.
     _, truncated = scan_markdown(section)
     if truncated:
-        msg = (f"SENTINEL LOADER: §{n} ends inside an unclosed code fence — the "
+        msg = (f"3EAI-SDLC LOADER: §{n} ends inside an unclosed code fence — the "
                f"section was truncated and the content below is INCOMPLETE.")
         print(f"\n> ⚠️ **{msg}**\n")        # the agent reads stdout
         print(f"WARNING: {msg}", file=sys.stderr)   # the human reads stderr
@@ -506,7 +506,7 @@ if SINGLE_GUIDELINE is not None or LIST_BUCKETS is not None:
     if not GUIDELINES_DIR.is_dir():
         die(4, f"the plugin's guidelines directory is missing at {GUIDELINES_DIR}")
     for violation in LAYER_VIOLATIONS:
-        print(f"SENTINEL LAYER WARNING: {violation} — skipped", file=sys.stderr)
+        print(f"3EAI-SDLC LAYER WARNING: {violation} — skipped", file=sys.stderr)
 
 if LIST_BUCKETS is not None:
     layer_rank = {"user": 0, "project": 1}
@@ -571,7 +571,7 @@ if PHASE in CORE_PROFILES or helper_uses_essentials():
                for name, path in paths if not path.is_file()]
     if missing:
         die(3, "validation failed:\n  - " + "\n  - ".join(missing))
-    _core_sep(f"SENTINEL core-context — {PHASE} — {len(paths)} guideline(s)")
+    _core_sep(f"3EAI-SDLC core-context — {PHASE} — {len(paths)} guideline(s)")
     print(f"Project: {PROJECT_ROOT}")
     for name, path in paths:
         _core_sep(f"[{ESSENTIALS}/{name}] full load (Core profile)")
@@ -602,12 +602,12 @@ if PHASE in MODE_PROFILES:
 
     # A layer problem never stops a mode: the file is skipped and reported.
     for violation in LAYER_VIOLATIONS:
-        print(f"SENTINEL LAYER WARNING: {violation} — skipped", file=sys.stderr)
+        print(f"3EAI-SDLC LAYER WARNING: {violation} — skipped", file=sys.stderr)
 
     loaded = [(bucket, name, strip_frontmatter_text(path.read_text(encoding="utf-8")))
               for bucket, name, path in entries]
 
-    _sep(f"SENTINEL mode-context — {PHASE} — {len(entries)} guideline(s)")
+    _sep(f"3EAI-SDLC mode-context — {PHASE} — {len(entries)} guideline(s)")
     print(f"Project: {PROJECT_ROOT}")
     for bucket, name, body in loaded:
         by_section = bool(agent_sections) and is_v4(body)
@@ -649,7 +649,7 @@ except ImportError:
 
 if not MANIFEST_PATH.is_file():
     die(3, f"manifest missing at {MANIFEST_PATH}\n"
-           f"  → run /sentinel:phase1 to bootstrap, or create the file per "
+           f"  → run /3eai-sdlc:phase1 to bootstrap, or create the file per "
            f"{GUIDELINES_DIR.name}/MANIFEST_SCHEMA.md §8.")
 
 try:
@@ -770,7 +770,7 @@ for bucket in BUCKETS:
     # Validating their file existence would force projects to ship stubs for
     # every guideline they have explicitly chosen NOT to use — inverting the
     # exclusion semantic and blocking project-specific disabled entries
-    # (e.g. a domain/compliance the sentinel-repo doesn't track stubs for).
+    # (e.g. a domain/compliance the development repository doesn't track stubs for).
     for e in enabled:
         candidate = GUIDELINES_DIR / bucket / f"{e['name']}.md"
         if not candidate.is_file():
@@ -838,7 +838,7 @@ def emit_separator(title):
     print(f"\n{'=' * 72}\n{title}\n{'=' * 72}\n")
 
 sections_wanted = PHASE_SECTIONS[PHASE]
-emit_separator(f"SENTINEL phase-context — {PHASE} — sections §{sections_wanted}")
+emit_separator(f"3EAI-SDLC phase-context — {PHASE} — sections §{sections_wanted}")
 print(f"Project: {PROJECT_ROOT}")
 print(f"Manifest: {MANIFEST_PATH}")
 

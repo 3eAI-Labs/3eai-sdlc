@@ -4,7 +4,7 @@ description: |
   Ship workflow — run tests, review diff, bump version, update changelog, commit, push,
   create PR. Use when asked to "ship", "push", "create PR", "bump version", or
   "merge and push". Not for: deploying to an environment (/phase6); the release checklist
-  of a project the user calls small (/release). (sentinel)
+  of a project the user calls small (/release). (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -21,7 +21,7 @@ allowed-tools:
 ```bash
 E3E_ROOT="$(sentinel-root)" || exit 1
 echo "======================================================================"
-echo "🚀 SENTINEL: SHIP — Release Workflow"
+echo "🚀 3EAI-SDLC: SHIP — Release Workflow"
 echo "======================================================================"
 echo ""
 "$E3E_ROOT/guidelines/load_phase_context.sh" ship "$PWD" || exit $?

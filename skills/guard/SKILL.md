@@ -4,7 +4,7 @@ description: |
   Safety mode — warns before destructive commands and restricts edits to a specified
   directory. Use when working on production systems, debugging live environments, or
   when you want maximum safety. Combines destructive command warnings with directory
-  scoping. Use when asked to "guard mode", "safe mode", "production mode". (sentinel)
+  scoping. Use when asked to "guard mode", "safe mode", "production mode". (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -17,7 +17,7 @@ allowed-tools:
 
 ```bash
 echo "======================================================================"
-echo "🛡️ SENTINEL: GUARD MODE — Maximum Safety"
+echo "🛡️ 3EAI-SDLC: GUARD MODE — Maximum Safety"
 echo "======================================================================"
 echo ""
 echo "ACTIVE PROTECTIONS:"

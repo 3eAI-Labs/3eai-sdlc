@@ -1,6 +1,6 @@
-# Sentinel Core — Setup
+# 3eAI SDLC Core — Setup
 
-sentinel's hooks activate when you install the plugin in Claude Code; there is no
+3eai-sdlc's hooks activate when you install the plugin in Claude Code; there is no
 separate install step. This guide covers what it writes and the one thing you
 switch on yourself: the gate.
 
@@ -11,7 +11,7 @@ switch on yourself: the gate.
    `auto_audit`, `side_effect_check`) run on the matching events.
 2. **Stage gate** — Each hook checks `.sentinel/runtime/current_phase` and stays off
    outside its stages and modes (`hooks/_phase_policy.py`). The one exception: in a
-   project with deliverables, the `SENTINEL ROUTE` block names the skill to enter
+   project with deliverables, the `3EAI-SDLC ROUTE` block names the skill to enter
    when the marker is missing, unknown or ahead of the project's stage.
 3. **The stage marker** — A stage skill's first line, `sentinel-state enter <stage>`,
    checks the project has reached the stage and writes the marker; `/maintenance`
@@ -24,12 +24,12 @@ verified. Below the minimum Python the hooks fail without a notice.
 
 ## Per-project `.gitignore`
 
-sentinel writes these lines itself. When a stage or mode starts in a project that
+3eai-sdlc writes these lines itself. When a stage or mode starts in a project that
 is a git work tree, `sentinel-state` appends to the project's `.gitignore` the
 lines below that it lacks, once, and prints which ones it added:
 
 ```gitignore
-# Sentinel runtime state — per-session, never commit
+# 3eAI SDLC runtime state — per-session, never commit
 .sentinel/runtime/audit_log.json
 .sentinel/runtime/audit_findings_pending.json
 .sentinel/runtime/hook_errors.jsonl

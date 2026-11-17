@@ -4,7 +4,7 @@ description: |
   Restrict file edits to a specific directory. Blocks Edit and Write outside the allowed
   path. Use when debugging to prevent accidentally modifying unrelated code, or when
   scoping changes to one module. Use when asked to "freeze", "restrict edits",
-  "only edit this folder", "scope changes to". (sentinel)
+  "only edit this folder", "scope changes to". (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -19,7 +19,7 @@ allowed-tools:
 
 ```bash
 echo "======================================================================"
-echo "🧊 SENTINEL: FREEZE — Directory-Scoped Edits"
+echo "🧊 3EAI-SDLC: FREEZE — Directory-Scoped Edits"
 echo "======================================================================"
 echo ""
 echo "Usage: /freeze [directory]"

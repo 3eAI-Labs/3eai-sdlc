@@ -1,9 +1,9 @@
-# sentinel — Sentinel Core for Claude Code
+# 3eai-sdlc — 3eAI SDLC Core for Claude Code
 
-sentinel gives Claude Code a simple way to build a project in four stages, each
+3eai-sdlc gives Claude Code a simple way to build a project in four stages, each
 written down, reviewed and approved by you: Define, Design, Build and Release. It
 is meant for a developer working alone or in a small team. You say what you want
-to build; sentinel works out where the project is and asks you only project
+to build; 3eai-sdlc works out where the project is and asks you only project
 questions.
 
 ## The four stages
@@ -15,7 +15,7 @@ questions.
 | Build | working code and tests, and a build report | the source tree, `docs/05_implementation/BUILD_REPORT.md` |
 | Release | a version that runs, how it is deployed and how it is rolled back | `docs/06_deploy/RELEASE.md` |
 
-Each stage ends with a review (`/sentinel:phase-review <stage>`, a fresh-context
+Each stage ends with a review (`/3eai-sdlc:phase-review <stage>`, a fresh-context
 reviewer) and your approval, recorded next to the document (`DEFINE_GATE.md` …). A
 stage starts only after the one before it is approved.
 
@@ -26,17 +26,17 @@ before it lands), `/ship` (test, version, commit and, on your go-ahead, push),
 
 ## Getting started
 
-Install sentinel from Claude Code's plugin directory (the `/plugin` command), open
+Install 3eai-sdlc from Claude Code's plugin directory (the `/plugin` command), open
 your project, and say what you want to build. For example:
 
 1. "Start a new project: a command-line to-do app that keeps its list in a local file."
 2. "I want a small web page where my club's members can book the tennis court."
 3. "The CSV export of my invoicing tool drops the last row; find out why and fix it."
 
-In a new project sentinel records the flow in `.sentinel/flow` and starts with
+In a new project 3eai-sdlc records the flow in `.sentinel/flow` and starts with
 Define. You do not need to know its stages or commands.
 
-## What sentinel runs, reads and writes
+## What 3eai-sdlc runs, reads and writes
 
 - Its hooks run `python3` and `git` on your machine, inside the project.
 - The hooks read the current session's transcript, to check the turn they follow.
@@ -52,7 +52,7 @@ Define. You do not need to know its stages or commands.
   Claude Code). `sentinel-lock` writes `.sentinel-control/` and the project's
   `.claude/settings.json`, and reads your `~/.claude/settings.json`.
 - `/ship` runs `git push` and `gh pr create` only after your go-ahead.
-- sentinel fetches nothing, and sends nothing to 3EAI.
+- 3eai-sdlc fetches nothing, and sends nothing to 3EAI.
 
 ## Requirements
 
@@ -60,11 +60,11 @@ Define. You do not need to know its stages or commands.
 - `python3` on `PATH`, Python 3.9 or newer (its smoke tests pass on 3.9 to 3.14; on an older
   Python the hooks fail without a notice).
 - `git`, for the hooks that compare files and for the project's `.gitignore`.
-- sentinel has been run on Linux; macOS and native Windows are not verified.
+- 3eai-sdlc has been run on Linux; macOS and native Windows are not verified.
 
 ## Editions
 
-This is the free edition of sentinel. sentinel Pro, from 3EAI, adds the enterprise
+This is the free edition of 3eai-sdlc. 3eAI SDLC Pro, from 3EAI, adds the enterprise
 flow (eight phases for several teams and regulated work, with detailed engineering
 guidelines) and more runtime checks. A project built with this edition opens in Pro
 unchanged: the same documents, the same gate records and the same hooks. Install one

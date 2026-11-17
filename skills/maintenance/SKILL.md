@@ -5,7 +5,7 @@ description: |
   Use when fixing bugs, reducing tech debt, improving performance, or adapting to new requirements.
   Not for: production-down emergencies or hotfixes (/incident); building a project the user
   calls small (/build).
-  Triggers: "maintenance", "bug fix", "tech debt", "improvement". (sentinel)
+  Triggers: "maintenance", "bug fix", "tech debt", "improvement". (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -22,13 +22,13 @@ allowed-tools:
 ```bash
 E3E_ROOT="$(sentinel-root)" || exit 1
 
-# Record current phase for sentinel runtime hooks (see hooks/_phase_policy.py).
+# Record current phase for 3eai-sdlc runtime hooks (see hooks/_phase_policy.py).
 mkdir -p "$PWD/.sentinel/runtime" 2>/dev/null || true
 printf '%s' "maintenance" > "$PWD/.sentinel/runtime/current_phase" 2>/dev/null || true
 sentinel-state setup --root "$PWD" || true
 
 echo "======================================================================"
-echo "🔧 SENTINEL: MAINTENANCE MODE"
+echo "🔧 3EAI-SDLC: MAINTENANCE MODE"
 echo "======================================================================"
 echo ""
 "$E3E_ROOT/guidelines/load_phase_context.sh" maintenance "$PWD" || exit $?

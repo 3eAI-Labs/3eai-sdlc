@@ -4,7 +4,7 @@ description: |
   Pre-landing PR code review. Analyzes diff for SQL safety, trust boundary violations,
   error handling gaps, security issues, and structural problems. Use when asked to
   "review this PR", "code review", "check my diff", "review before merge".
-  Not for: phase deliverable review (/phase-review); Phase 6 release gate (/phase6). (sentinel)
+  Not for: phase deliverable review (/phase-review); Phase 6 release gate (/phase6). (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -19,7 +19,7 @@ allowed-tools:
 ```bash
 E3E_ROOT="$(sentinel-root)" || exit 1
 echo "======================================================================"
-echo "📝 SENTINEL: CODE REVIEW — Pre-Landing Review"
+echo "📝 3EAI-SDLC: CODE REVIEW — Pre-Landing Review"
 echo "======================================================================"
 echo ""
 "$E3E_ROOT/guidelines/load_phase_context.sh" review "$PWD" || exit $?
@@ -116,7 +116,7 @@ For every **DTO/struct** modified at a module boundary:
 ```
 ## Code Review Report
 PR: [branch name or PR number]
-Reviewer: sentinel /review
+Reviewer: 3eai-sdlc /review
 Date: YYYY-MM-DD
 
 ### Summary

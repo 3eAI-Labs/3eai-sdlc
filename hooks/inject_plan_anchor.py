@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""UserPromptSubmit hook: plan anchor + audit findings re-injection (sentinel).
+"""UserPromptSubmit hook: plan anchor + audit findings re-injection (3eai-sdlc).
 
 Long conversations decay. Rules and commitments stated at the top of a session
 lose weight as context fills. By the 50th turn, a model that opened with
@@ -14,7 +14,7 @@ Sources (any/all may be missing):
   4. `plan_review.advisory` — a PLAN REVIEW block while `active_plan.md` has no
      converged or accepted /plan-review stamp for its current text (not in
      incident); for a plan edited after its review it lists what changed
-  5. `_project_state.hook_route` — a SENTINEL ROUTE block, first, when the
+  5. `_project_state.hook_route` — a 3EAI-SDLC ROUTE block, first, when the
      marker is missing, unknown or ahead of the project's derived phase in a
      project with deliverables (not on a `/` command prompt)
 
@@ -57,10 +57,10 @@ AUDIT_PENDING_RELATIVE_PATH = _RUNTIME / "audit_findings_pending.json"
 # Edit/Write/Bash would be denied when nothing would deny them.
 FORCED_RULE_SET_RELATIVE_PATH = Path(".sentinel-control") / "forced_rule_set"
 HOOK_EVENT_NAME = "UserPromptSubmit"
-PLAN_REVIEW_HEADER = "PLAN REVIEW (sentinel):"
-ROUTE_HEADER = "SENTINEL ROUTE:"
+PLAN_REVIEW_HEADER = "PLAN REVIEW (3eai-sdlc):"
+ROUTE_HEADER = "3EAI-SDLC ROUTE:"
 AUDIT_HEADER = (
-    "PRIOR-TURN AUDIT (auto-flagged by sentinel Stop hook — "
+    "PRIOR-TURN AUDIT (auto-flagged by 3eai-sdlc Stop hook — "
     "address each item or explicitly defer with reason):"
 )
 PENDING_HEADER = (

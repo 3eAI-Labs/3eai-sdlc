@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stop hook: automatic post-response audit (sentinel runtime layer).
+"""Stop hook: automatic post-response audit (3eai-sdlc runtime layer).
 
 Self-audit is unreliable — the model that drifted cannot reliably notice its
 own drift. This hook performs an external pattern-based check on every
@@ -311,7 +311,7 @@ def _write_log(log_path: Path, entries: list[dict]) -> None:
 def _emit_user_summary(findings: list[audit_heuristics.Finding]) -> None:
     if not findings:
         return
-    lines = ["", "[Sentinel Audit] Possible violations detected in last turn:"]
+    lines = ["", "[3eAI SDLC Audit] Possible violations detected in last turn:"]
     for f in findings:
         lines.append(f"  - {f.rule}: {f.message}")
     lines.append("  (Logged to .sentinel/runtime/audit_log.json — fed back to model next turn.)")

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# sentinel-root — prints the absolute path to the Sentinel install root.
+# sentinel-root — prints the absolute path to the 3eAI SDLC install root.
 #
-# Used by skill preambles and helper scripts that need to locate the Sentinel
+# Used by skill preambles and helper scripts that need to locate the 3eAI SDLC
 # install (guidelines, agents, hooks). Resolves itself via ${BASH_SOURCE[0]}
 # and follows symbolic links so it also works when exposed through PATH.
 #

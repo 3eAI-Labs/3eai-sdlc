@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sentinel phase-context loader (M3 — manifest-driven).
+# 3eAI SDLC phase-context loader (M3 — manifest-driven).
 #
 # Reads the project's GUIDELINES_MANIFEST.yaml, validates it, then streams the
 # phase-relevant sections of every `enabled` guideline to stdout. `disabled`
@@ -46,7 +46,7 @@
 #       not the version its bytecode was built for; the notice says which)
 #
 # Environment:
-#   CLAUDE_PLUGIN_ROOT   Path to the sentinel plugin root. Auto-derived if unset.
+#   CLAUDE_PLUGIN_ROOT   Path to the 3eai-sdlc plugin root. Auto-derived if unset.
 #   SENTINEL_DEBUG       If set to 1, emit extra diagnostics to stderr.
 #   SENTINEL_USER_DIR    The user directory of the guideline layers. Unset or
 #                        empty: ~/.sentinel. Moves the guideline layer only; the

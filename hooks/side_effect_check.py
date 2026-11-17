@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Side-effect check (sentinel runtime layer): after a shell call, tell the
+"""Side-effect check (3eai-sdlc runtime layer): after a shell call, tell the
 agent which files changed that the command does not name.
 
 Events (one script, told apart by `hook_event_name` and `tool_name`):
@@ -94,7 +94,7 @@ def changed_paths(before: dict, after: dict, listed: Iterable[str]) -> list[str]
 
 
 def is_state_path(path: str) -> bool:
-    """Sentinel's own state: hooks write there during any call."""
+    """3eAI SDLC's own state: hooks write there during any call."""
     probe = "/" + path
     return "/.sentinel/runtime/" in probe or "/.sentinel-control/" in probe
 
@@ -317,7 +317,7 @@ def build_message(paths: Iterable[str]) -> str:
     if len(paths) > MAX_LISTED:
         listed += f" (+{len(paths) - MAX_LISTED} more)"
     return (
-        f"Sentinel side-effect check: {len(paths)} file(s) changed during this command "
+        f"3eAI SDLC side-effect check: {len(paths)} file(s) changed during this command "
         f"that it does not name: {listed}. Each path is listed once."
     )
 

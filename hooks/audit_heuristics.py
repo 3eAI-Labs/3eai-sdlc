@@ -1,4 +1,4 @@
-"""Pattern-based audit heuristics for the sentinel Stop hook.
+"""Pattern-based audit heuristics for the 3eai-sdlc Stop hook.
 
 Pure functions. No LLM, no network. Each check returns zero or more Finding
 objects. The Stop hook (`auto_audit.py`) composes these checks and surfaces

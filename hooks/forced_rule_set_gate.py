@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PreToolUse hook: forced rule set gate (sentinel runtime layer).
+"""PreToolUse hook: forced rule set gate (3eai-sdlc runtime layer).
 
 Philosophy (audit-not-block)
 ----------------------------
@@ -15,7 +15,7 @@ Order of operations when forced_rule_set is ON:
   2. Write to active_plan.md (plan bootstrap) → allow.
   3. Tool/params match a deny rule of destructive_patterns.json → DENY.
   4. Skill enforcement (`_plan_gate`): active plan present + no Skill tool
-     call in transcript → DENY with sentinel-specific reason.
+     call in transcript → DENY with 3eai-sdlc-specific reason.
   4b. The command matches an ask rule (`decision: "ask"`: an outward command
      such as `git push`, `scp`, a publish, a mail) → ASK the user, in every
      phase. Deny rules are tried before ask rules.
@@ -31,7 +31,7 @@ Order of operations when forced_rule_set is ON:
   7. Allow.
 
 Gated tools: Edit, Write, NotebookEdit, MultiEdit, Bash, PowerShell and the
-subagent tool (`Agent`; `Task` in older harness versions). A sentinel skill the
+subagent tool (`Agent`; `Task` in older harness versions). A 3eai-sdlc skill the
 user typed as a slash command counts as a Skill call for step 4.
 
 Steps 4 and 6 live in `_plan_gate.py`, a Pro-only module imported at the
@@ -717,7 +717,7 @@ def decide(
         # phase. Skill enforcement keeps its place: it denies below.
         if not skill_reason:
             return "ask", (
-                f"Sentinel: '{tool_name}' matches outward rule {destructive_match.get('id', '<unnamed>')}. "
+                f"3eAI SDLC: '{tool_name}' matches outward rule {destructive_match.get('id', '<unnamed>')}. "
                 f"Reason: {destructive_match.get('reason', 'leaves the machine')}. "
                 "This leaves the machine, so you decide."
             ), False
@@ -735,11 +735,11 @@ def decide(
         )
         if phase is not None:
             return "ask", (
-                f"Sentinel: {what}Phase '{phase or 'none'}' is outside the gate's "
+                f"3eAI SDLC: {what}Phase '{phase or 'none'}' is outside the gate's "
                 "phases, so you decide."
             ), False
         reason = (
-            f"Sentinel forced rule set ON: {what}"
+            f"3eAI SDLC forced rule set ON: {what}"
             "If this step is needed, stop and tell the user what you want to run "
             f"and why; they decide. {_USER_ONLY}"
         )

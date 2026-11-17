@@ -3,7 +3,7 @@ name: retro
 description: |
   Sprint retrospective — analyzes commit history, work patterns, and code quality metrics
   with trend tracking. Use when asked to "retro", "retrospective", "what went well",
-  "sprint review", "team review", or at the end of a sprint. (sentinel)
+  "sprint review", "team review", or at the end of a sprint. (3eai-sdlc)
 allowed-tools:
   - Bash
   - Read
@@ -19,7 +19,7 @@ allowed-tools:
 ```bash
 E3E_ROOT="$(sentinel-root)" || exit 1
 echo "======================================================================"
-echo "🔄 SENTINEL: RETRO — Sprint Retrospective"
+echo "🔄 3EAI-SDLC: RETRO — Sprint Retrospective"
 echo "======================================================================"
 echo ""
 "$E3E_ROOT/guidelines/load_phase_context.sh" retro "$PWD" || exit $?

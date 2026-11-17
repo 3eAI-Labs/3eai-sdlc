@@ -1,7 +1,7 @@
 """Where a project is, derived from its gate records and deliverables.
 
-Sentinel's claim is that the user knows how a project is built, not how
-sentinel works. So the plugin works out the project's phase itself, refuses
+3eAI SDLC's claim is that the user knows how a project is built, not how
+3eai-sdlc works. So the plugin works out the project's phase itself, refuses
 to start a phase the project has not reached, and tells the model which skill
 to enter; the user is asked only project questions ("approve the
 architecture?"), never about phases, skills or markers.
@@ -30,7 +30,7 @@ architecture?"), never about phases, skills or markers.
 - `find_root(cwd)`: the project root these read and write.
 - `edition()`: `free` or `pro`, from the plugin's `BUILD_INFO.json`. The
   free edition holds the Core flow only: it refuses `flow enterprise` and
-  `upgrade`, names sentinel Pro where Pro names an enterprise skill, and lets
+  `upgrade`, names 3eAI SDLC Pro where Pro names an enterprise skill, and lets
   `flow core` replace an enterprise flow inferred only from a deliverables
   directory.
 
@@ -314,31 +314,31 @@ def _ahead(phase: str, state: State, keys: tuple[str, ...] = PHASES) -> bool:
 _NO_PHASE_QUESTIONS = "do not ask the user about phases, skills or markers."
 
 _SIZE_ROUTE = (
-    "SENTINEL ROUTE: this project has no sentinel flow recorded yet. Unless the user's request "
+    "3EAI-SDLC ROUTE: this project has no 3eai-sdlc flow recorded yet. Unless the user's request "
     "already says how big the project is, ask the user once, in project terms: is this a small "
     "project (one developer or a small team, with no regulatory or multi-team requirements) or "
     "an enterprise one? Record the answer with `sentinel-state flow core` (small project) or "
-    "`sentinel-state flow enterprise` (enterprise project), then enter the sentinel:define "
-    "skill (small project) or the sentinel:phase1 skill (enterprise project) with the Skill "
+    "`sentinel-state flow enterprise` (enterprise project), then enter the 3eai-sdlc:define "
+    "skill (small project) or the 3eai-sdlc:phase1 skill (enterprise project) with the Skill "
     "tool. Apart from that one question, do not ask the user about phases, skills, flows or "
     "markers.")
 
 PRO_SENTENCE = ("the enterprise flow (several teams, regulatory requirements, formal architecture "
-                "and release gates) is part of sentinel Pro; this edition of sentinel holds the "
+                "and release gates) is part of 3eAI SDLC Pro; this edition of 3eai-sdlc holds the "
                 "Core flow")
 
 _FREE_UNDECIDED_ROUTE = (
-    "SENTINEL ROUTE: this project has no sentinel flow recorded yet. If the user's request says "
+    "3EAI-SDLC ROUTE: this project has no 3eai-sdlc flow recorded yet. If the user's request says "
     "the project is large (several teams, regulatory requirements), first tell the user once, in "
     f"project terms, that {PRO_SENTENCE}, offer to build it with the Core flow, and go on only "
     "after the user accepts; record nothing before that. Then run `sentinel-state flow core` and "
-    "enter the sentinel:define skill with the Skill tool. Apart from that one offer, do not ask "
+    "enter the 3eai-sdlc:define skill with the Skill tool. Apart from that one offer, do not ask "
     "the user about phases, skills, flows or markers.")
 
 
 def _pro_route(root: Path, state: State) -> str:
     """Free edition: the route of a project that follows the enterprise flow."""
-    text = (f"SENTINEL ROUTE: this project follows sentinel's enterprise flow ({state.reason}); "
+    text = (f"3EAI-SDLC ROUTE: this project follows 3eai-sdlc's enterprise flow ({state.reason}); "
             f"{PRO_SENTENCE}. Tell the user so once, in project terms.")
     if _core_may_replace(root):
         text += (" Its flow was inferred from its documentation folders only, so it can go on "
@@ -351,20 +351,20 @@ def _pro_route(root: Path, state: State) -> str:
 def _other_flow_route(state: State, current: str, wanted: Phase) -> str:
     here = TABLE[state.phase]
     if current == "core" and _free():
-        return (f"SENTINEL ROUTE: this project follows sentinel's Core flow and is at the "
+        return (f"3EAI-SDLC ROUTE: this project follows 3eai-sdlc's Core flow and is at the "
                 f"{here.name} stage ({state.reason}); the {wanted.name} phase is not part of this "
-                f"edition. Enter the sentinel:{state.phase} skill with the Skill tool and continue "
+                f"edition. Enter the 3eai-sdlc:{state.phase} skill with the Skill tool and continue "
                 f"there; {_NO_PHASE_QUESTIONS}")
     if current == "core":
-        return (f"SENTINEL ROUTE: this project follows sentinel's Core flow and is at the "
+        return (f"3EAI-SDLC ROUTE: this project follows 3eai-sdlc's Core flow and is at the "
                 f"{here.name} stage ({state.reason}); the {wanted.name} phase belongs to the "
-                f"enterprise flow. Enter the sentinel:{state.phase} skill with the Skill tool and "
+                f"enterprise flow. Enter the 3eai-sdlc:{state.phase} skill with the Skill tool and "
                 "continue there. Only if the user asked for the full enterprise process: confirm "
                 "it with the user in project terms, run `sentinel-state upgrade`, then enter the "
-                f"sentinel:phase1 skill. Otherwise {_NO_PHASE_QUESTIONS}")
-    return (f"SENTINEL ROUTE: this project follows sentinel's enterprise flow and is at the "
+                f"3eai-sdlc:phase1 skill. Otherwise {_NO_PHASE_QUESTIONS}")
+    return (f"3EAI-SDLC ROUTE: this project follows 3eai-sdlc's enterprise flow and is at the "
             f"{here.name} stage ({state.reason}); the Core {wanted.label} stage does not apply to "
-            f"it. Enter the sentinel:{state.phase} skill with the Skill tool and continue there; "
+            f"it. Enter the 3eai-sdlc:{state.phase} skill with the Skill tool and continue there; "
             f"{_NO_PHASE_QUESTIONS}")
 
 
@@ -385,8 +385,8 @@ def route(root: Path, requested: str) -> str | None:
     if not _ahead(requested, state, keys):
         return None
     here, wanted = TABLE[state.phase], TABLE[requested]
-    return (f"SENTINEL ROUTE: this project is at the {here.name} stage ({state.reason}), so work on "
-            f"the {wanted.name} cannot start yet. Enter the sentinel:{state.phase} skill with the "
+    return (f"3EAI-SDLC ROUTE: this project is at the {here.name} stage ({state.reason}), so work on "
+            f"the {wanted.name} cannot start yet. Enter the 3eai-sdlc:{state.phase} skill with the "
             "Skill tool and continue there. Tell the user what the project needs next in project "
             f"terms (for example: work on the {here.name} is to be finished and approved); "
             f"{_NO_PHASE_QUESTIONS}")
@@ -413,23 +413,23 @@ def agent_route(root: Path, phases: tuple[str, ...]) -> str | None:
     if marker in phases and marker in keys and not _ahead(marker, state, keys):
         return None
     mine, here = TABLE[phases[0]], TABLE[state.phase]
-    return (f"SENTINEL ROUTE: this agent belongs to the {mine.name} stage; its skill was not "
+    return (f"3EAI-SDLC ROUTE: this agent belongs to the {mine.name} stage; its skill was not "
             f"entered (phase marker: '{shown(marker) or 'none'}'). The project is at the "
             f"{here.name} stage ({state.reason}). Return this text to the caller, which enters "
-            f"the sentinel:{state.phase} skill with the Skill tool; {_NO_PHASE_QUESTIONS}")
+            f"the 3eai-sdlc:{state.phase} skill with the Skill tool; {_NO_PHASE_QUESTIONS}")
 
 
 _OTHER_SKILLS = (
-    "sentinel:maintenance, sentinel:incident, sentinel:track0 (platform work), sentinel:review "
-    "(code review), sentinel:cso (security audit), sentinel:investigate (debugging), "
-    "sentinel:sprint or sentinel:retro, sentinel:publish (documentation), sentinel:ship (test, "
-    "commit, PR), sentinel:guard or sentinel:freeze (edit safety), sentinel:phase-review, "
-    "sentinel:plan-review, sentinel:multi-review, sentinel:decision-audit, sentinel:work-plan, "
+    "3eai-sdlc:maintenance, 3eai-sdlc:incident, 3eai-sdlc:track0 (platform work), 3eai-sdlc:review "
+    "(code review), 3eai-sdlc:cso (security audit), 3eai-sdlc:investigate (debugging), "
+    "3eai-sdlc:sprint or 3eai-sdlc:retro, 3eai-sdlc:publish (documentation), 3eai-sdlc:ship (test, "
+    "commit, PR), 3eai-sdlc:guard or 3eai-sdlc:freeze (edit safety), 3eai-sdlc:phase-review, "
+    "3eai-sdlc:plan-review, 3eai-sdlc:multi-review, 3eai-sdlc:decision-audit, 3eai-sdlc:work-plan, "
     "or an earlier phase's or stage's skill for a change to its deliverables")
 _FREE_OTHER_SKILLS = (
-    "sentinel:maintenance, sentinel:review (code review), sentinel:investigate (debugging), "
-    "sentinel:retro, sentinel:ship (test, commit, PR), sentinel:guard or sentinel:freeze (edit "
-    "safety), sentinel:phase-review, or an earlier stage's skill for a change to its deliverables")
+    "3eai-sdlc:maintenance, 3eai-sdlc:review (code review), 3eai-sdlc:investigate (debugging), "
+    "3eai-sdlc:retro, 3eai-sdlc:ship (test, commit, PR), 3eai-sdlc:guard or 3eai-sdlc:freeze (edit "
+    "safety), 3eai-sdlc:phase-review, or an earlier stage's skill for a change to its deliverables")
 
 
 def _known() -> frozenset[str]:
@@ -452,10 +452,10 @@ def hook_route(root: Path, prompt: str) -> str | None:
         return _pro_route(root, state)
     note = f"; the phase marker reads '{shown(marker)}'" if marker else ""
     others = _FREE_OTHER_SKILLS if _free() else _OTHER_SKILLS
-    return (f"SENTINEL ROUTE: this project is at the {TABLE[state.phase].name} stage "
+    return (f"3EAI-SDLC ROUTE: this project is at the {TABLE[state.phase].name} stage "
             f"({state.reason}), and the phase set does not match it{note}. Before working on its "
-            f"deliverables or code, enter the sentinel:{state.phase} skill with the Skill tool. If "
-            "a sentinel skill entered earlier in this conversation covers the request, keep going "
+            f"deliverables or code, enter the 3eai-sdlc:{state.phase} skill with the Skill tool. If "
+            "a 3eai-sdlc skill entered earlier in this conversation covers the request, keep going "
             "in it. If the request belongs to another skill, enter that one instead: "
             f"{others}. Do not ask the user about phases, skills or markers.")
 
@@ -543,10 +543,10 @@ def upgrade(root: Path, today: str | None = None) -> State:
 
 # ---------- the project's .gitignore ----------
 
-# What sentinel adds to a project's .gitignore: its per-session runtime files.
+# What 3eai-sdlc adds to a project's .gitignore: its per-session runtime files.
 # INSTALL.md shows the same block.
 GITIGNORE_LINES = (
-    "# Sentinel runtime state — per-session, never commit",
+    "# 3eAI SDLC runtime state — per-session, never commit",
     ".sentinel/runtime/audit_log.json",
     ".sentinel/runtime/audit_findings_pending.json",
     ".sentinel/runtime/hook_errors.jsonl",
