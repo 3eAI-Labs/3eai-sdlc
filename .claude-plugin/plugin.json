@@ -1,6 +1,6 @@
 {
   "name": "3eai-sdlc",
-  "version": "0.42.0",
+  "version": "0.42.1",
   "description": "3eAI SDLC Core: build a project in four reviewed and approved stages (define, design, build, release), with short guidelines and a fresh-context reviewer.",
   "author": {
     "name": "3EAI Labs Ltd"
