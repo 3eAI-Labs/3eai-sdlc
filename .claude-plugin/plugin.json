@@ -1,13 +1,14 @@
 {
   "name": "3eai-sdlc",
-  "version": "0.41.0",
-  "description": "3eAI SDLC Core: build a project in four reviewed and approved stages (define, design, build, release), with short guidelines, a fresh-context reviewer and an opt-in gate for destructive commands.",
+  "version": "0.42.0",
+  "description": "3eAI SDLC Core: build a project in four reviewed and approved stages (define, design, build, release), with short guidelines and a fresh-context reviewer.",
   "author": {
     "name": "3EAI Labs Ltd"
   },
-  "license": "LicenseRef-3EAI-Labs-Proprietary",
-  "homepage": "https://github.com/3eAI-Labs/3eai-sdlc-core",
-  "documentationUrl": "https://github.com/3eAI-Labs/3eai-sdlc-core#readme",
-  "supportUrl": "https://github.com/3eAI-Labs/3eai-sdlc-core/issues",
-  "termsOfServiceUrl": "https://github.com/3eAI-Labs/3eai-sdlc-core/blob/main/LICENSE"
+  "license": "Apache-2.0",
+  "homepage": "https://3eai-labs.org",
+  "repository": "https://github.com/3eAI-Labs/3eai-sdlc",
+  "documentationUrl": "https://github.com/3eAI-Labs/3eai-sdlc#readme",
+  "supportUrl": "https://github.com/3eAI-Labs/3eai-sdlc/issues",
+  "termsOfServiceUrl": "https://github.com/3eAI-Labs/3eai-sdlc/blob/main/LICENSE"
 }

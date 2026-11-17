@@ -1,0 +1,16 @@
+{
+  "name": "3eai-open",
+  "owner": {
+    "name": "3EAI Labs Ltd"
+  },
+  "metadata": {
+    "description": "3eAI SDLC Core, the open edition of 3eai-sdlc."
+  },
+  "plugins": [
+    {
+      "name": "3eai-sdlc",
+      "source": "./",
+      "description": "3eAI SDLC Core: build a project in four reviewed and approved stages (define, design, build, release)."
+    }
+  ]
+}

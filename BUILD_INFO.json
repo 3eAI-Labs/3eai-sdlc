@@ -1,6 +1,6 @@
 {
-  "version": "0.41.0",
-  "edition": "free",
-  "commit": "695e73cf832cd6b104104e286831d31e6a4ca349",
+  "version": "0.42.0",
+  "edition": "open",
+  "commit": "b0ff92c0d69b07e42ea96b7c5666bebc1c7a9bb2",
   "dirty": false
 }
