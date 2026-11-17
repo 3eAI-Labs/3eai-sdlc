@@ -45,6 +45,14 @@ files next to the documents, and runs the project's tests in the Build and Relea
 stages; Claude Code asks you before each write and each command. It sends nothing to
 3EAI. `.sentinel/flow` and the review and approval files are meant to be committed.
 
+## Privacy
+
+3eAI SDLC Core is Markdown only: it runs no code of its own, collects no data, and sends
+nothing to 3EAI Labs or anyone else. What it writes (the stage documents, the review
+reports and the approval records, which hold the approver's name or role as you enter
+it) stays in your project's files on your machine. Claude Code's own handling of your
+data is governed by Anthropic's terms.
+
 ## 3eAI SDLC Pro
 
 3eAI SDLC Pro adds the enterprise flow (eight phases for several teams and regulated
