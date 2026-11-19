@@ -58,7 +58,7 @@ data is governed by Anthropic's terms.
 3eAI SDLC Pro adds the enterprise flow (eight phases for several teams and regulated
 work, with detailed engineering guidelines) and runtime checks that hold the flow in
 place. A project made with this plugin opens in Pro with its documents and approvals.
-Install one of the two, not both. Details and download: https://3eai-labs.org
+Install one of the two, not both. Details and download: https://3eai-labs.com
 
 ## Licence
 

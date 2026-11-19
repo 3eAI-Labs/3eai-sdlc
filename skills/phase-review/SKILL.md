@@ -17,7 +17,7 @@ You are an orchestrator, not the reviewer. Do not review in this context: the re
 ## Step 1: the stage
 
 - The argument is one of `define`, `design`, `build`, `release`.
-- A phase number (`1`, `2`, `3`, `3.5`, `4`, `5`, `5.5`, `6`), or a project whose `.sentinel/flow` reads `enterprise`: enterprise phase reviews are part of 3eAI SDLC Pro (https://3eai-labs.org). Say so once, in project terms, and stop.
+- A phase number (`1`, `2`, `3`, `3.5`, `4`, `5`, `5.5`, `6`), or a project whose `.sentinel/flow` reads `enterprise`: enterprise phase reviews are part of 3eAI SDLC Pro (https://3eai-labs.com). Say so once, in project terms, and stop.
 - No argument: review the latest stage whose deliverable exists (`release`, `build`, `design`, `define`, in that order), and name it in the report.
 
 | Stage | Directory | Deliverable |

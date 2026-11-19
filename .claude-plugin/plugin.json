@@ -1,13 +1,13 @@
 {
   "name": "3eai-sdlc",
   "displayName": "3eAI SDLC Core",
-  "version": "0.42.3",
+  "version": "0.42.4",
   "description": "3eAI SDLC Core: build a project in four reviewed and approved stages (define, design, build, release), with short guidelines and a fresh-context reviewer.",
   "author": {
     "name": "3EAI Labs Ltd"
   },
   "license": "Apache-2.0",
-  "homepage": "https://3eai-labs.org",
+  "homepage": "https://3eai-labs.com",
   "repository": "https://github.com/3eAI-Labs/3eai-sdlc",
   "keywords": ["sdlc", "requirements", "software-design", "code-review", "release-checklist", "human-approval"],
   "documentationUrl": "https://github.com/3eAI-Labs/3eai-sdlc#readme",

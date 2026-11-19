@@ -23,7 +23,7 @@ flow: core
 
 ### Flow
 
-1. The project's flow is the first line of `.sentinel/flow`. `core` is this flow. `enterprise`, or a line `upgraded-from: core` (followed by a date), means the project follows the enterprise flow, which is part of 3eAI SDLC Pro (https://3eai-labs.org): say so once, in project terms, and stop.
+1. The project's flow is the first line of `.sentinel/flow`. `core` is this flow. `enterprise`, or a line `upgraded-from: core` (followed by a date), means the project follows the enterprise flow, which is part of 3eAI SDLC Pro (https://3eai-labs.com): say so once, in project terms, and stop.
 2. No `.sentinel/flow`: decide the flow from the project's files, in this order, and record it by writing `core` and a newline to `.sentinel/flow`.
    1. If the project holds a Core gate or review file (`DEFINE_GATE.md`, `DEFINE_REVIEW.md`, `DESIGN_GATE.md`, `DESIGN_REVIEW.md`, `BUILD_GATE.md`, `BUILD_REVIEW.md`, `RELEASE_GATE.md` or `RELEASE_REVIEW.md`) in its stage's directory: write `core` without asking.
    2. Else, if it holds a `PHASE<N>_GATE.md` or `PHASE1_APPROVAL.md` in a `docs/0x_*` directory: the project follows the enterprise flow; stop as in rule 1.
@@ -50,4 +50,4 @@ flow: core
 
 ### Moving to the Enterprise flow
 
-14. When the user asks for the full enterprise process (more teams, regulation, formal architecture and release gates), say that it is part of 3eAI SDLC Pro (https://3eai-labs.org), which continues a project made with this flow from its documents and approvals.
+14. When the user asks for the full enterprise process (more teams, regulation, formal architecture and release gates), say that it is part of 3eAI SDLC Pro (https://3eai-labs.com), which continues a project made with this flow from its documents and approvals.
